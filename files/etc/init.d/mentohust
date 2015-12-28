@@ -1,0 +1,39 @@
+#!/bin/sh /etc/rc.common
+
+START=55
+STOP=10
+
+function start {
+    _CONFIG=/var/run/mentohust.conf
+	echo [MentoHUST] > "${_CONFIG}"
+	echo Username=$(uci get mentohust.@mentohust[0].Username) >> "${_CONFIG}"
+	echo Password=$(uci get mentohust.@mentohust[0].Password) >> "${_CONFIG}"
+	echo Nic=$(uci get mentohust.@mentohust[0].Nic) >> "${_CONFIG}"
+	echo IP=$(uci get mentohust.@mentohust[0].IP) >> "${_CONFIG}"
+	echo Mask=$(uci get mentohust.@mentohust[0].Mask) >> "${_CONFIG}"
+	echo Gateway=$(uci get mentohust.@mentohust[0].Gateway) >> "${_CONFIG}"
+	echo DNS=$(uci get mentohust.@mentohust[0].DNS) >> "${_CONFIG}"
+	echo PingHost=$(uci get mentohust.@mentohust[0].PingHost) >> "${_CONFIG}"
+	echo Timeout=$(uci get mentohust.@mentohust[0].Timeout) >> "${_CONFIG}"
+	echo EchoInterval=$(uci get mentohust.@mentohust[0].EchoInterval) >> "${_CONFIG}"
+	echo RestartWait=$(uci get mentohust.@mentohust[0].RestartWait) >> "${_CONFIG}"
+	echo MaxFail=$(uci get mentohust.@mentohust[0].MaxFail) >> "${_CONFIG}"
+	echo StartMode=$(uci get mentohust.@mentohust[0].StartMode) >> "${_CONFIG}"
+	echo DhcpMode=$(uci get mentohust.@mentohust[0].DhcpMode) >> "${_CONFIG}"
+	echo DaemonMode=$(uci get mentohust.@mentohust[0].DaemonMode) >> "${_CONFIG}"
+	echo Version=$(uci get mentohust.@mentohust[0].Version) >> "${_CONFIG}"
+	echo DataFile=$(uci get mentohust.@mentohust[0].DataFile) >> "${_CONFIG}"
+	echo dhcpscript=$(uci get mentohust.@mentohust[0].dhcpscript) >> "${_CONFIG}"
+	while ! ifconfig $(uci get mentohust.@mentohust[0].Nic) | grep UP &>/dev/null; do sleep 1; done
+	mentohust 2>&1 >/var/log/mentohust.daemon.log
+}
+
+function stop {
+    sync
+    mentohust -k >/dev/null 2>&1
+}
+
+function restart {
+    stop
+    start
+}
