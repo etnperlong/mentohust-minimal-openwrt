@@ -3,7 +3,7 @@
 START=55
 STOP=10
 
-function start {
+start() {
     _CONFIG=/var/run/mentohust.conf
 	echo [MentoHUST] > "${_CONFIG}"
 	echo Username=$(uci get mentohust.@mentohust[0].Username) >> "${_CONFIG}"
@@ -28,12 +28,12 @@ function start {
 	mentohust 2>&1 >/var/log/mentohust.daemon.log
 }
 
-function stop {
+stop() {
     sync
     mentohust -k >/dev/null 2>&1
 }
 
-function restart {
+restart() {
     stop
     start
 }
