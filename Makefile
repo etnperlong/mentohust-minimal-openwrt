@@ -1,16 +1,16 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mentohust
-PKG_VERSION:=0.3.1
+PKG_VERSION:=0.4.0
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_SUBDIR:=$(PKG_NAME)-$(PKG_VERSION)
-PKG_SOURCE_URL:=https://github.com/hexchain/mentohust-minimal.git
+PKG_SOURCE_URL:=https://github.com/etnperlong/mentohust-minimal.git
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_VERSION:=9725b027f8ec0f980e5f22f77d09a34d299c4bd2
+PKG_SOURCE_VERSION:=b49462223a3e88fefc004f04056a6fe26e781596
 
-PKG_MAINTAINER:=Hexchain Tong <i@hexchain.org>
+PKG_MAINTAINER:=Mike Evans <etnperlong@gmail.com>
 PKG_LICENSE:=GPL-2.0
 
 
@@ -24,7 +24,7 @@ define Package/mentohust
   SECTION:=net
   CATEGORY:=Network
   TITLE:=MentoHUST
-  URL:=https://github.com/HustLion/mentohust
+  URL:=https://github.com/etnperlong/mentohust
   DEPENDS:=+libpcap
 endef
 
